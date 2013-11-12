@@ -43,7 +43,7 @@ List<T>::~List(void)
 }
 
 template <class T>
-int List<T>::add_to_head(T & item)
+int List<T>::add_to_head(const T & item)
 {
 	// Create new node with T
 	node<T>* tmp = new node<T>;
@@ -81,7 +81,7 @@ int List<T>::add_to_head(T & item)
 }
 
 template <class T>
-int List<T>::add_to_end(T & item)
+int List<T>::add_to_end(const T & item)
 {
 	// Create new node with T
 	node<T>* tmp = new node<T>;
@@ -258,11 +258,11 @@ template <class T>
 int List<T>::fget_count(node<T>* strt)
 {
 	if(NULL == strt) return 0;
-	return fget_count(strt->next) +1;
+	return (fget_count(strt->next) +1);
 }
 
 template <class T>
-List<T>& List<T>::operator=(const & List<T> right);
+List<T>& List<T>::operator=(const & List<T> right)
 {
 
 }

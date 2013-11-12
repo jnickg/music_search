@@ -52,9 +52,9 @@ public:
 	~List(void);
 	
 	// Creates a new node and makes item its data; prepends it to the List
-	int add_to_head(T & item);
+	int add_to_head(const T & item);
 	// Creates a new node and makes item its data; appends it to the List
-	int add_to_end(T & item);
+	int add_to_end(const T & item);
 	// Removes the last node in the List
 	int remove_last();
 	// Removes the first node in the List
@@ -81,7 +81,7 @@ public:
 	// Forces a re-count of nodes and returns that; does not reset node count
 	int fget_count();
 
-	List& operator=(const & List right);
+	List<T>& operator=(const & List<T> right);
 private:
 	node<T>* head; // The head
 	node<T>* last; // The last
@@ -92,7 +92,7 @@ private:
 	// Used to force a recount of count
 	int fget_count(node<T>* strt);
 	// Defined in List.cpp ????
-	friend std::ostream& operator<<(std::ostream& out, const List* const list);
+	friend std::ostream& operator<<(std::ostream& out, const List<T>* const list);
 };
 
 #include "List.cpp"
