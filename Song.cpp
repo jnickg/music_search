@@ -78,16 +78,19 @@ int Song::copySongTo(Song & that) const
 	return 1;
 }
 
-// Spits out a string representation of the instance.
-// Currently returns title + artist.
-// Allocated memory must be deleted.
-char* Song::toStr(void) const
+// Spits copies to ts a string representation of the instance.
+int Song::toStr(char * & ts) const
 {
-	char* ts = new char[strlen(title) + strlen(artist) + 1];
-	strcat(ts, title);
-	strcat(ts, artist);
-	strcat(ts, "\n");
-	return ts;
+	if(title && artist)
+	{
+		if(ts) delete ts;
+		ts = new char[strlen(title) + strlen(artist) + 1];
+		strcat(ts, title);
+		strcat(ts, artist);
+		strcat(ts, "\n");
+		return 1;
+	}
+	else return 0;
 }
 	
 // Prints all data

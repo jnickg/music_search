@@ -36,7 +36,7 @@ public:
 	// Copies all data from this, to that
 	int copySongTo(Song & that) const;
 	// Spits out a string representation of the instance
-	char* toStr(void) const;
+	int toStr(char * & ts) const;
 	
 	// Prints all data
 	std::ostream& print(std::ostream & out) const;
