@@ -40,9 +40,9 @@ public:
 	int getByArtist(char* artist, jnickg::adt::List<Album> & result);
 
 	// Searches for album and copies existing songs to result
-	int getByAlbum(char* album, jnickg::adt::List<Song> & result);
+	int getByAlbum(char* album, Album & result);
 private:
 	int hash(char* str);
-	jnickg::adt::node<jnickg::adt::List<Album>> ** artistTable;
-	jnickg::adt::node<jnickg::adt::List<Song>> ** albumTable;
+	jnickg::adt::node<jnickg::adt::List<Song>> ** artistTable;
+	jnickg::adt::node<Album> ** albumTable;
 };

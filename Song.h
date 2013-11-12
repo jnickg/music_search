@@ -29,8 +29,12 @@ public:
 
 	// Adds song to a new playlist
 	int addToPlaylist(char* pl);
+	// Sets all the data to this, from params
+	int setSongFrom(char* t, char* ar, char* al, int l);
 	// Copies all data to this, from that
-	int copySong(const Song& that);
+	int copySongFrom(const Song& that);
+	// Copies all data from this, to that
+	int copySongTo(Song & that) const;
 	// Spits out a string representation of the instance
 	char* toStr(void) const;
 	
@@ -44,4 +48,9 @@ private:
 	char* album; // The album the song is in
 	jnickg::adt::List<char*> playlists; // The playlists in which the song appears
 	int length; // The length (in seconds) of the song
+
+	// Invokes the Song's print function
+	friend std::ostream& operator<<(std::ostream& out, const Song* const song);
 };
+
+std::ostream& operator<<(std::ostream& out, const Song* const song);

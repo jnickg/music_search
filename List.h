@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <ostream>
 
 /* LIST (LINEAR LINKED LIST)
 List.h
@@ -7,8 +8,9 @@ Created 17 Oct 2013
 
 See description below
 
-THIS IS A TEMPLATE CLASS WHICH REQUIRES FUNCTION
-IMPLEMENTATIONS INSIDE THE .h FILE
+THIS IS A TEMPLATE CLASS WHICH REQUIRES AN
+IMPORT OF A CPP FILE, AT THE END OF THIS
+DEFINITION
 
 */
 
@@ -42,267 +44,38 @@ template <class T> struct node
 template <class T> class List
 {
 public:
-	List(char* n)
-	{
-		head = 	NULL;
-		head = NULL;
-		last = NULL;
-		cur = NULL;
-		count = 0;
-		strcpy(name, n);
-	}
-
-	~List()
-	{
-		// If there is a head
-		if(head)
-		{
-			node<T>* tmp;
-			while(head->next)
-			{
-				// Set tmp to the 'in-between' node
-				tmp=head->next;
-				// Set head to point over tmp (unless
-				// tmp is the 2nd to last one)
-				if(tmp->next)
-					head->next = tmp->next;
-				// Then cull tmp
-				delete tmp;
-			}
-			delete head;
-		}
-		
-	}
-
-	/*
-	Head/Last functions
-	*/
+	List(char* n);
+	~List(void);
 	
 	// Creates a new node and makes item its data; prepends it to the List
-	int add_to_head(T & item)
-	{
-		// Create new node with T
-		node<T>* tmp = new node<T>;
-		tmp->data = item;
-	
-		// If no items in list, it's both last and head
-		if (NULL==head)
-		{
-			last = tmp;
-			head = tmp;
-			cur = tmp;
-			tmp->next = NULL;
-		}
-		// One-item List needs to disconnect head and last
-		else if(NULL==head->next)
-		{
-			tmp->next = head;
-			last = head;
-			head = tmp;
-			last->next = NULL;
-		}
-		// Otherwise it's just the new head
-		else
-		{ 
-			tmp->next = head;
-			head = tmp;
-			if(cur == head)
-			{
-				cur = tmp;
-			}
-		}
-
-		count++;
-		return 1;
-	}
-
-
-
+	int add_to_head(T & item);
 	// Creates a new node and makes item its data; appends it to the List
-	int add_to_end(T & item)
-	{
-		// Create new node with T
-		node<T>* tmp = new node<T>;
-		tmp->data = item;
-
-		// If no items in list, it's both last and head
-		if (NULL==head)
-		{
-			last = tmp;
-			head = tmp;
-			cur = tmp;
-			tmp->next = NULL;
-		}
-		// One-item List needs to disconnect head and last
-		else if(NULL==head->next)
-		{
-			head->next = tmp;
-			last = tmp;
-			last->next = NULL:
-		}
-		// Otherwise it's just the new last
-		else
-		{ 
-			last->next = tmp;
-			last = tmp;
-			last->next = NULL;
-			if(cur == last)
-			{
-				cur = last;
-			}
-		}
-
-		count++;
-		return 1;	
-	}
-
-
-
+	int add_to_end(T & item);
 	// Removes the last node in the List
-	int remove_last()
-	{
-		// Empty List
-		if (head == NULL)
-			return 0;
-		
-		// One-item List
-		else if (head->next == NULL)
-		{
-			delete head;
-			head = NULL;
-			count--;
-			return 1;
-		}
-		
-		// Multi-item List
-		else {
-			remove_last(head->next);
-			return 1;
-		}
-	}
-
-
-
+	int remove_last();
 	// Removes the first node in the List
-	int remove_first()
-	{
-		if (head == NULL)
-		{
-			return 0;
-		}
-		else
-		{
-			node<T>* tmp = head;
-			head = head->next;
-			delete tmp;
-			tmp = NULL;
-
-			count--;
-			return 1;
-		}
-	}
-
-	
-	
+	int remove_first();
 	// Returns the node at the beginning of the List
-	int get_head(T & data)
-	{
-		if(head)
-		{
-			data = head->data;
-			return 1;
-		}
-		else return 0;
-	}
-
-	
-	
+	int get_head(T & data);
 	// Returns the final node in the List
-	int get_last(T & data)
-	{
-		if(last)
-		{
-			data = last->data;
-			return 1;
-		}
-		else return 0;
-	}
-
-	/*
-	Iteration functions
-	*/
-	
-	
+	int get_last(T & data);
 	
 	// Returns 1 if it resets its iterator to the head of the List; 0 if head points to NULL
-	int it_init()
-	{
-		if(!(head==NULL))
-		{
-			cur = head;
-			return 1;
-		}
-		else return 0;
-	}
-	
-	
-	
+	int it_init();
 	// Returns 1 if it advanced to the next node; 0 if the next node pointed to NULL
-	int it_adv()
-	{
-		if(cur->next == NULL)
-			return 0;
-		else 
-		{
-			cur = cur->next;
-			return 1;
-		}
-	}
-	
-	
-	
+	int it_adv();
 	// Returns the node to which the iterator currently points
-	int it_cur(T & data)
-	{
-		data = cur->data;
-		return 1;
-	}
-	
-	
-	
+	int it_cur(T & data);
 	// Returns 1 if item comes after the iterator; 0 if they are equal; -1 if it comes before
-	int it_comp(T & item)
-	{
-		T c = cur->data;
-		if(c < item) return 1;
-		else if(c > item) return -1;
-		else return 0;
-	}
+	int it_comp(T & item);
+	std::ostream& print(std::ostream& out) const;
 
-	/*
-	Metadata functions
-	*/
-	
 	// Checks if this list is the one being looked for
-	bool isname(char* n)
-	{
-		if(0==strcmp(name, n) return true;
-		else return false;
-	}
-	
+	bool isname(char* n);
 	// Returns the current node count
-	int get_count()
-	{
-		return count;
-	}
-
-	
-	
+	int get_count();
 	// Forces a re-count of nodes and returns that; does not reset node count
-	int fget_count()
-	{
-		return fget_count(head);
-	}
+	int fget_count();
 
 private:
 	node<T>* head; // The head
@@ -310,17 +83,14 @@ private:
 	node<T>* cur; // The iterator 
 	int count; // The number of nodes
 	char* name; // The name of the list (used for assignment 3)
-	
-	
-	
+
 	// Used to force a recount of count
-	int fget_count(node<T>* strt)
-	{
-		if(NULL == strt) return 0;
-		return fget_count(strt->next) +1;
-	}
+	int fget_count(node<T>* strt);
+	// Defined in List.cpp ????
+	friend std::ostream& operator<<(std::ostream& out, const List* const list);
 };
 
-//#include "List.cpp"
+#include "List.cpp"
 
 }} // end namespace
+
