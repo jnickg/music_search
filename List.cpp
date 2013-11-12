@@ -12,250 +12,213 @@ List<T>::List(void)
 template <class T>
 List<T>::List(char* n)
 {
-
-	{
-		head = 	NULL;
-		head = NULL;
-		last = NULL;
-		cur = NULL;
-		count = 0;
-		strcpy(name, n);
-	}
+	head = 	NULL;
+	head = NULL;
+	last = NULL;
+	cur = NULL;
+	count = 0;
+	strcpy(name, n);
 }
 
 template <class T>
 List<T>::~List(void)
 {
-
+	// If there is a head
+	if(head)
 	{
-		// If there is a head
-		if(head)
+		node<T>* tmp;
+		while(head->next)
 		{
-			node<T>* tmp;
-			while(head->next)
-			{
-				// Set tmp to the 'in-between' node
-				tmp=head->next;
-				// Set head to point over tmp (unless
-				// tmp is the 2nd to last one)
-				if(tmp->next)
-					head->next = tmp->next;
-				// Then cull tmp
-				delete tmp;
-			}
-			delete head;
+			// Set tmp to the 'in-between' node
+			tmp=head->next;
+			// Set head to point over tmp (unless
+			// tmp is the 2nd to last one)
+			if(tmp->next)
+				head->next = tmp->next;
+			// Then cull tmp
+			delete tmp;
 		}
-		
+		delete head;
 	}
 }
 
 template <class T>
 int List<T>::add_to_head(T & item)
 {
-
-	{
-		// Create new node with T
-		node<T>* tmp = new node<T>;
-		tmp->data = item;
+	// Create new node with T
+	node<T>* tmp = new node<T>;
+	tmp->data = item;
 	
-		// If no items in list, it's both last and head
-		if (NULL==head)
-		{
-			last = tmp;
-			head = tmp;
-			cur = tmp;
-			tmp->next = NULL;
-		}
-		// One-item List needs to disconnect head and last
-		else if(NULL==head->next)
-		{
-			tmp->next = head;
-			last = head;
-			head = tmp;
-			last->next = NULL;
-		}
-		// Otherwise it's just the new head
-		else
-		{ 
-			tmp->next = head;
-			head = tmp;
-			if(cur == head)
-			{
-				cur = tmp;
-			}
-		}
-
-		count++;
-		return 1;
+	// If no items in list, it's both last and head
+	if (NULL==head)
+	{
+		last = tmp;
+		head = tmp;
+		cur = tmp;
+		tmp->next = NULL;
 	}
+	// One-item List needs to disconnect head and last
+	else if(NULL==head->next)
+	{
+		tmp->next = head;
+		last = head;
+		head = tmp;
+		last->next = NULL;
+	}
+	// Otherwise it's just the new head
+	else
+	{ 
+		tmp->next = head;
+		head = tmp;
+		if(cur == head)
+		{
+			cur = tmp;
+		}
+	}
+
+	count++;
+	return 1;
 }
 
 template <class T>
 int List<T>::add_to_end(T & item)
 {
+	// Create new node with T
+	node<T>* tmp = new node<T>;
+	tmp->data = item;
 
+	// If no items in list, it's both last and head
+	if (NULL==head)
 	{
-		// Create new node with T
-		node<T>* tmp = new node<T>;
-		tmp->data = item;
-
-		// If no items in list, it's both last and head
-		if (NULL==head)
-		{
-			last = tmp;
-			head = tmp;
-			cur = tmp;
-			tmp->next = NULL;
-		}
-		// One-item List needs to disconnect head and last
-		else if(NULL==head->next)
-		{
-			head->next = tmp;
-			last = tmp;
-			last->next = NULL:
-		}
-		// Otherwise it's just the new last
-		else
-		{ 
-			last->next = tmp;
-			last = tmp;
-			last->next = NULL;
-			if(cur == last)
-			{
-				cur = last;
-			}
-		}
-
-		count++;
-		return 1;	
+		last = tmp;
+		head = tmp;
+		cur = tmp;
+		tmp->next = NULL;
 	}
+	// One-item List needs to disconnect head and last
+	else if(NULL==head->next)
+	{
+		head->next = tmp;
+		last = tmp;
+		last->next = NULL:
+	}
+	// Otherwise it's just the new last
+	else
+	{ 
+		last->next = tmp;
+		last = tmp;
+		last->next = NULL;
+		if(cur == last)
+		{
+			cur = last;
+		}
+	}
+
+	count++;
+	return 1;	
 }
 
 template <class T>
 int List<T>::remove_last()
 {
-
+	// Empty List
+	if (head == NULL)
+		return 0;
+		
+	// One-item List
+	else if (head->next == NULL)
 	{
-		// Empty List
-		if (head == NULL)
-			return 0;
+		delete head;
+		head = NULL;
+		count--;
+		return 1;
+	}
 		
-		// One-item List
-		else if (head->next == NULL)
-		{
-			delete head;
-			head = NULL;
-			count--;
-			return 1;
-		}
-		
-		// Multi-item List
-		else {
-			remove_last(head->next);
-			return 1;
-		}
+	// Multi-item List
+	else {
+		remove_last(head->next);
+		return 1;
 	}
 }
 
 template <class T>
 int List<T>::remove_first()
 {
-
+	if (head == NULL)
 	{
-		if (head == NULL)
-		{
-			return 0;
-		}
-		else
-		{
-			node<T>* tmp = head;
-			head = head->next;
-			delete tmp;
-			tmp = NULL;
+		return 0;
+	}
+	else
+	{
+		node<T>* tmp = head;
+		head = head->next;
+		delete tmp;
+		tmp = NULL;
 
-			count--;
-			return 1;
-		}
+		count--;
+		return 1;
 	}
 }
 
 template <class T>
 int List<T>::get_head(T & data)
 {
-
+	if(head)
 	{
-		if(head)
-		{
-			data = head->data;
-			return 1;
-		}
-		else return 0;
+		data = head->data;
+		return 1;
 	}
+	else return 0;
 }
 
 template <class T>
 int List<T>::(T & data)
 {
-
+	if(last)
 	{
-		if(last)
-		{
-			data = last->data;
-			return 1;
-		}
-		else return 0;
+		data = last->data;
+		return 1;
 	}
+	else return 0;
 }
 
 template <class T>
 int List<T>::it_init()
 {
-
+	if(!(head==NULL))
 	{
-		if(!(head==NULL))
-		{
-			cur = head;
-			return 1;
-		}
-		else return 0;
+		cur = head;
+		return 1;
 	}
+	else return 0;
 }
 
 template <class T>
 int List<T>::it_adv()
 {
-
+	if(cur->next == NULL)
+		return 0;
+	else 
 	{
-		if(cur->next == NULL)
-			return 0;
-		else 
-		{
-			cur = cur->next;
-			return 1;
-		}
+		cur = cur->next;
+		return 1;
 	}
 }
 
 template <class T>
 int List<T>::it_cur(T & data)
 {
-
-	{
-		data = cur->data;
-		return 1;
-	}
+	data = cur->data;
+	return 1;
 }
 
 template <class T>
 int List<T>::it_comp(T & item)
 {
-
-	{
-		T c = cur->data;
-		if(c < item) return 1;
-		else if(c > item) return -1;
-		else return 0;
-	}
+	T c = cur->data;
+	if(c < item) return 1;
+	else if(c > item) return -1;
+	else return 0;
 }
 
 template <class T>
@@ -267,7 +230,6 @@ std::ostream& print(std::ostream& out) const
 	while(tmp)
 	{
 		out << "Item " << ++i << "\n\n" << tmp->data << std::endl;
-		tmp->data.print(out);
 		tmp = tmp->next;
 	}
 	return out;
@@ -276,37 +238,31 @@ std::ostream& print(std::ostream& out) const
 template <class T>
 bool List<T>::isname(char* n)
 {
-
-	{
-		if(0==strcmp(name, n) return true;
-		else return false;
-	}
+	if(0==strcmp(name, n) return true;
+	else return false;
 }
 
 template <class T>
 int List<T>::get_count()
 {
-
-	{
-		return count;
-	}
+	return count;
 }
 
 template <class T>
 int List<T>::fget_count()
 {
-
-	{
-		return fget_count(head);
-	}
+	return fget_count(head);
 }
 
 template <class T>
 int List<T>::fget_count(node<T>* strt)
 {
+	if(NULL == strt) return 0;
+	return fget_count(strt->next) +1;
+}
 
-	{
-		if(NULL == strt) return 0;
-		return fget_count(strt->next) +1;
-	}
+template <class T>
+List<T>& List<T>::operator=(const & List<T> right);
+{
+
 }

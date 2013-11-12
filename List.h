@@ -40,6 +40,9 @@ template <class T> struct node
 	which can be manipulated through the it_
 	functions.
 
+	Any type T for List needs to have:
+	operator= implemented
+
 */
 template <class T> class List
 {
@@ -78,6 +81,7 @@ public:
 	// Forces a re-count of nodes and returns that; does not reset node count
 	int fget_count();
 
+	List& operator=(const & List right);
 private:
 	node<T>* head; // The head
 	node<T>* last; // The last
