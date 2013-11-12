@@ -36,6 +36,12 @@ public:
 	// music library
 	int cpyToLib(Song & nSong);
 
+	// Adds nSong to artistTable; chains if needed
+	int addByArtist(char* artist, Song & nSong);
+
+	// Adds nSong to albumTable; chains if needed
+	int addByAlbum(char* album, Song & nSong);
+
 	// Searches for artist and copies existing albums to result
 	int getByArtist(char* artist, jnickg::adt::List<Album> & result);
 

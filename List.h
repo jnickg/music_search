@@ -44,6 +44,7 @@ template <class T> struct node
 template <class T> class List
 {
 public:
+	List(void);
 	List(char* n);
 	~List(void);
 	

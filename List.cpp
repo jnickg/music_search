@@ -1,4 +1,15 @@
 template <class T>
+List<T>::List(void)
+{
+	head = 	NULL;
+	head = NULL;
+	last = NULL;
+	cur = NULL;
+	count = 0;
+	strcpy(name, "list");
+}
+
+template <class T>
 List<T>::List(char* n)
 {
 
