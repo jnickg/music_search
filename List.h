@@ -99,3 +99,10 @@ private:
 
 }} // end namespace
 
+
+//Find new place for this
+//template <class T>
+//std::ostream& operator<<(std::ostream& out, const List<T>* const list)
+//{
+//	return list.print(out);
+//}
