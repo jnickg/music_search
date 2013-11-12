@@ -91,8 +91,12 @@ private:
 
 	// Used to force a recount of count
 	int fget_count(node<T>* strt);
+
+	void clear(void);
+
 	// Defined in List.cpp ????
-	friend std::ostream& operator<<(std::ostream& out, const List<T>* const list);
+	//friend std::ostream& operator<<(std::ostream& out, const List<T>* const list);
+
 };
 
 #include "List.cpp"

@@ -264,5 +264,47 @@ int List<T>::fget_count(node<T>* strt)
 template <class T>
 List<T>& List<T>::operator=(const & List<T> right)
 {
+	// Clear all of this
+	this->clear();
 
+	// Get data from right for ever of ITS nodes
+	T data;
+	if(right.it_init())
+	{
+		right.it_cur(data);
+		head = new node<T>;
+		head->data = data;
+		node<T>* tmp = head;
+		while(right.it_adv())
+		{
+			right.it_cur(data);
+			tmp->next = new node<T>;
+			tmp = tmp->next;
+			tmp->data = data;
+		}
+		tmp->next = NULL;
+	}
+}
+
+template <class T>
+void List<T>::clear(void)
+{
+	// If there is a head
+	if(head)
+	{
+		node<T>* tmp;
+		while(head->next)
+		{
+			// Set tmp to the 'in-between' node
+			tmp=head->next;
+			// Set head to point over tmp (unless
+			// tmp is the 2nd to last one)
+			if(tmp->next)
+				head->next = tmp->next;
+			// Then cull tmp
+			delete tmp;
+		}
+		delete head;
+		head = NULL;
+	}
 }
