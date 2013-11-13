@@ -100,7 +100,7 @@ int List<T>::add_to_end(const T & item)
 	{
 		head->next = tmp;
 		last = tmp;
-		last->next = NULL:
+		last->next = NULL;
 	}
 	// Otherwise it's just the new last
 	else
@@ -172,7 +172,7 @@ int List<T>::get_head(T & data)
 }
 
 template <class T>
-int List<T>::(T & data)
+int List<T>::get_last(T & data)
 {
 	if(last)
 	{
@@ -183,7 +183,7 @@ int List<T>::(T & data)
 }
 
 template <class T>
-int List<T>::it_init()
+int List<T>::it_init() const
 {
 	if(!(head==NULL))
 	{
@@ -194,7 +194,7 @@ int List<T>::it_init()
 }
 
 template <class T>
-int List<T>::it_adv()
+int List<T>::it_adv() const
 {
 	if(cur->next == NULL)
 		return 0;
@@ -206,14 +206,14 @@ int List<T>::it_adv()
 }
 
 template <class T>
-int List<T>::it_cur(T & data)
+int List<T>::it_cur(T & data) const
 {
 	data = cur->data;
 	return 1;
 }
 
 template <class T>
-int List<T>::it_comp(T & item)
+int List<T>::it_comp(T & item) const
 {
 	T c = cur->data;
 	if(c < item) return 1;
@@ -222,14 +222,15 @@ int List<T>::it_comp(T & item)
 }
 
 template <class T>
-std::ostream& print(std::ostream& out) const
+std::ostream& List<T>::print(std::ostream& out) const
 {
 	out << "Attempting to print List \'" << name << "\'" << std::endl;
 	int i = 0;
-	node* tmp = head;
+	node<T>* tmp = head;
 	while(tmp)
 	{
-		out << "Item " << ++i << "\n\n" << tmp->data << std::endl;
+		out << "Item " << ++i << "\n\n";
+		out << &(tmp->data) << std::endl;
 		tmp = tmp->next;
 	}
 	return out;
@@ -238,7 +239,7 @@ std::ostream& print(std::ostream& out) const
 template <class T>
 bool List<T>::isname(char* n)
 {
-	if(0==strcmp(name, n) return true;
+	if(0==strcmp(name, n)) return true;
 	else return false;
 }
 
@@ -262,7 +263,7 @@ int List<T>::fget_count(node<T>* strt)
 }
 
 template <class T>
-List<T>& List<T>::operator=(const & List<T> right)
+List<T>& List<T>::operator=(const List<T> & right)
 {
 	// Clear all of this
 	this->clear();
@@ -284,6 +285,8 @@ List<T>& List<T>::operator=(const & List<T> right)
 		}
 		tmp->next = NULL;
 	}
+	else head = NULL;
+	return *this;
 }
 
 template <class T>

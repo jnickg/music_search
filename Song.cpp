@@ -92,6 +92,32 @@ int Song::toStr(char * & ts) const
 	}
 	else return 0;
 }
+
+// Copies to art the artist of the instance
+int Song::getArtist(char * & art) const
+{
+	if(artist)
+	{
+		if(art) delete art;
+		art = new char[strlen(artist) + 1];
+		strcpy(art, artist);
+		return 1;
+	}
+	else return 0;
+}
+
+// Copies to alb the album of the instance
+int Song::getAlbum(char * & alb) const
+{
+	if(album)
+	{
+		if(alb) delete alb;
+		alb = new char[strlen(album) + 1];
+		strcpy(alb, album);
+		return 1;
+	}
+	else return 0;
+}
 	
 // Prints all data
 std::ostream& Song::print(std::ostream & out) const

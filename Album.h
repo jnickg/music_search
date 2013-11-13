@@ -1,3 +1,5 @@
+#include <cstdlib>
+#include <cstring>
 #include "Song.h"
 
 /* ALBUM
@@ -46,6 +48,7 @@ private:
 
 	// Invokes the album's print function
 	friend std::ostream& operator<<(std::ostream& out, const Album* const album);
+
 };
 
 std::ostream& operator<<(std::ostream& out, const Album* const album);

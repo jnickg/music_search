@@ -29,15 +29,21 @@ public:
 
 	// Adds song to a new playlist
 	int addToPlaylist(char* pl);
+
 	// Sets all the data to this, from params
 	int setSongFrom(char* t, char* ar, char* al, int l);
 	// Copies all data to this, from that
 	int copySongFrom(const Song& that);
 	// Copies all data from this, to that
 	int copySongTo(Song & that) const;
+
 	// Spits out a string representation of the instance
 	int toStr(char * & ts) const;
-	
+	// Copies to art the artist of the instance
+	int getArtist(char * & art) const;
+	// Copies to alb the album of the instance
+	int getAlbum(char * & alb) const;
+
 	// Prints all data
 	std::ostream& print(std::ostream & out) const;
 	// Calls copySong

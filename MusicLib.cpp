@@ -22,13 +22,27 @@ MusicLib::~MusicLib(void)
 // music library
 int MusicLib::cpyToLib(Song & nSong)
 {
+	int worked = 0;
+	Song cpy1, cpy2;
+	// Get artist and album from nSong
+	char* art;
+	char* alb;
+	nSong.getArtist(art);
+	nSong.getAlbum(alb);
+
 	// Make a new Song and copy nSong to it (assumes nSong is an interface temp)
+	cpy1 = nSong;
 
 	// Get the artist from nSong & hash it to add to artistTable
+	worked += addByArtist(art, cpy1);
 
 	// Make another new Song from nSong, so artistTable and albumTable don't share memory
+	cpy2 = nSong;
 
 	// Get the album from nSong & hash it to add to albumTable
+	worked += addByAlbum(alb, cpy2);
+
+	return worked;
 }
 
 // Adds nSong to artistTable; chains if needed

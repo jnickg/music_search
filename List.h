@@ -65,13 +65,13 @@ public:
 	int get_last(T & data);
 	
 	// Returns 1 if it resets its iterator to the head of the List; 0 if head points to NULL
-	int it_init();
+	int it_init() const;
 	// Returns 1 if it advanced to the next node; 0 if the next node pointed to NULL
-	int it_adv();
+	int it_adv() const;
 	// Returns the node to which the iterator currently points
-	int it_cur(T & data);
+	int it_cur(T & data) const;
 	// Returns 1 if item comes after the iterator; 0 if they are equal; -1 if it comes before
-	int it_comp(T & item);
+	int it_comp(T & item) const;
 	std::ostream& print(std::ostream& out) const;
 
 	// Checks if this list is the one being looked for
@@ -81,11 +81,11 @@ public:
 	// Forces a re-count of nodes and returns that; does not reset node count
 	int fget_count();
 
-	List<T>& operator=(const & List<T> right);
+	List<T>& operator=(const List<T> & right);
 private:
 	node<T>* head; // The head
 	node<T>* last; // The last
-	node<T>* cur; // The iterator 
+	mutable node<T>* cur; // The iterator 
 	int count; // The number of nodes
 	char* name; // The name of the list (used for assignment 3)
 
