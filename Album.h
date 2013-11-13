@@ -23,6 +23,8 @@ public:
 	// Default destructor
 	~Album(void);
 
+	int setTitle(char* t);
+
 	// Used by MusicLib to test if an element in albumTable's
 	// chain matches the one being requested--if so, copies to
 	// found and returns 1; if not, returns 0.

@@ -20,6 +20,14 @@ Album::~Album(void)
 	title = NULL;
 }
 
+int Album::setTitle(char* t)
+{
+	if(title) delete title;
+	title = new char[strlen(t) + 1];
+	strcpy(title, t);
+	return 1;
+}
+
 // Used by MusicLib to test if an element in albumTable's
 // chain matches the one being requested--if so, copies to
 // found and returns 1; if not, returns 0.
