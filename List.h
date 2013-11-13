@@ -50,6 +50,8 @@ public:
 	List(void);
 	List(char* n);
 	~List(void);
+
+	int setName(char* n);
 	
 	// Creates a new node and makes item its data; prepends it to the List
 	int add_to_head(const T & item);

@@ -43,6 +43,15 @@ List<T>::~List(void)
 }
 
 template <class T>
+int List<T>::setName(char* n)
+{
+	if(name) delete name;
+	name = new char[strlen(n) + 1];
+	strcpy(name, n);
+	return 1;
+}
+
+template <class T>
 int List<T>::add_to_head(const T & item)
 {
 	// Create new node with T
