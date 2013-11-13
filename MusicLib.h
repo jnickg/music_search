@@ -48,7 +48,11 @@ public:
 	// Searches for album and copies existing songs to result
 	int getByAlbum(char* album, Album & result);
 private:
+	int artS; // size of the artist table
+	int albS; // size of the album table
+	/* Hash Tables */
+	jnickg::adt::node<jnickg::adt::List<Song>> ** artistTable; // Each list is named after the artist
+	jnickg::adt::node<Album> ** albumTable; // Each album knows its own name
+	
 	int hash(char* str);
-	jnickg::adt::node<jnickg::adt::List<Song>> ** artistTable;
-	jnickg::adt::node<Album> ** albumTable;
 };
