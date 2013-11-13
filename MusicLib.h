@@ -1,3 +1,6 @@
+#ifndef JNICKG_MUSICLIB
+#define JNICKG_MUSICLIB
+
 #include "Song.h"
 #include "Album.h"
 #include "List.h"
@@ -36,14 +39,10 @@ public:
 	// music library
 	int cpyToLib(Song & nSong);
 
-	// Adds nSong to artistTable; chains if needed
-	int addByArtist(char* artist, Song & nSong);
 
-	// Adds nSong to albumTable; chains if needed
-	int addByAlbum(char* album, Song & nSong);
 
 	// Searches for artist and copies existing albums to result
-	int getByArtist(char* artist, jnickg::adt::List<Album> & result);
+	int getByArtist(char* artist, jnickg::adt::List<Song> & result);
 
 	// Searches for album and copies existing songs to result
 	int getByAlbum(char* album, Album & result);
@@ -51,8 +50,17 @@ private:
 	int artS; // size of the artist table
 	int albS; // size of the album table
 	/* Hash Tables */
-	jnickg::adt::node<jnickg::adt::List<Song>> ** artistTable; // Each list is named after the artist
-	jnickg::adt::node<Album> ** albumTable; // Each album knows its own name
+	jnickg::adt::node < jnickg::adt::List < Song > > ** artistTable; // Each list is named after the artist
+	jnickg::adt::node < Album > ** albumTable; // Each album knows its own name
 	
+	// Hashes the string input in a standard way.
 	int hash(char* str);
+
+	// Adds nSong to artistTable; chains if needed
+	int addByArtist(char* artist, Song & nSong);
+
+	// Adds nSong to albumTable; chains if needed
+	int addByAlbum(char* album, Song & nSong);
 };
+
+#endif

@@ -1,27 +1,26 @@
-template <class T>
-List<T>::List(void)
+template <class T> List<T>::List(void)
 {
 	head = 	NULL;
 	head = NULL;
 	last = NULL;
 	cur = NULL;
 	count = 0;
+	name = new char[5];
 	strcpy(name, "list");
 }
 
-template <class T>
-List<T>::List(char* n)
+template <class T> List<T>::List(char* n)
 {
 	head = 	NULL;
 	head = NULL;
 	last = NULL;
 	cur = NULL;
 	count = 0;
+	name = new char[strlen(n) + 1];
 	strcpy(name, n);
 }
 
-template <class T>
-List<T>::~List(void)
+template <class T> List<T>::~List(void)
 {
 	// If there is a head
 	if(head)
@@ -42,8 +41,7 @@ List<T>::~List(void)
 	}
 }
 
-template <class T>
-int List<T>::setName(char* n)
+template <class T> int List<T>::setName(char* n)
 {
 	if(name) delete name;
 	name = new char[strlen(n) + 1];
@@ -51,8 +49,7 @@ int List<T>::setName(char* n)
 	return 1;
 }
 
-template <class T>
-int List<T>::add_to_head(const T & item)
+template <class T> int List<T>::add_to_head(const T & item)
 {
 	// Create new node with T
 	node<T>* tmp = new node<T>;
@@ -89,8 +86,7 @@ int List<T>::add_to_head(const T & item)
 	return 1;
 }
 
-template <class T>
-int List<T>::add_to_end(const T & item)
+template <class T> int List<T>::add_to_end(const T & item)
 {
 	// Create new node with T
 	node<T>* tmp = new node<T>;
@@ -127,8 +123,7 @@ int List<T>::add_to_end(const T & item)
 	return 1;	
 }
 
-template <class T>
-int List<T>::remove_last()
+template <class T> int List<T>::remove_last()
 {
 	// Empty List
 	if (head == NULL)
@@ -150,8 +145,7 @@ int List<T>::remove_last()
 	}
 }
 
-template <class T>
-int List<T>::remove_first()
+template <class T> int List<T>::remove_first()
 {
 	if (head == NULL)
 	{
@@ -169,8 +163,7 @@ int List<T>::remove_first()
 	}
 }
 
-template <class T>
-int List<T>::get_head(T & data)
+template <class T> int List<T>::get_head(T & data)
 {
 	if(head)
 	{
@@ -180,8 +173,7 @@ int List<T>::get_head(T & data)
 	else return 0;
 }
 
-template <class T>
-int List<T>::get_last(T & data)
+template <class T> int List<T>::get_last(T & data)
 {
 	if(last)
 	{
@@ -191,8 +183,7 @@ int List<T>::get_last(T & data)
 	else return 0;
 }
 
-template <class T>
-int List<T>::it_init() const
+template <class T> int List<T>::it_init() const
 {
 	if(!(head==NULL))
 	{
@@ -202,8 +193,7 @@ int List<T>::it_init() const
 	else return 0;
 }
 
-template <class T>
-int List<T>::it_adv() const
+template <class T> int List<T>::it_adv() const
 {
 	if(cur->next == NULL)
 		return 0;
@@ -214,15 +204,13 @@ int List<T>::it_adv() const
 	}
 }
 
-template <class T>
-int List<T>::it_cur(T & data) const
+template <class T> int List<T>::it_cur(T & data) const
 {
 	data = cur->data;
 	return 1;
 }
 
-template <class T>
-int List<T>::it_comp(T & item) const
+template <class T> int List<T>::it_comp(T & item) const
 {
 	T c = cur->data;
 	if(c < item) return 1;
@@ -230,8 +218,7 @@ int List<T>::it_comp(T & item) const
 	else return 0;
 }
 
-template <class T>
-std::ostream& List<T>::print(std::ostream& out) const
+template <class T> std::ostream& List<T>::print(std::ostream& out) const
 {
 	out << "Attempting to print List \'" << name << "\'" << std::endl;
 	int i = 0;
@@ -245,34 +232,29 @@ std::ostream& List<T>::print(std::ostream& out) const
 	return out;
 }
 
-template <class T>
-bool List<T>::isname(char* n)
+template <class T> bool List<T>::isname(char* n)
 {
 	if(0==strcmp(name, n)) return true;
 	else return false;
 }
 
-template <class T>
-int List<T>::get_count()
+template <class T> int List<T>::get_count()
 {
 	return count;
 }
 
-template <class T>
-int List<T>::fget_count()
+template <class T> int List<T>::fget_count()
 {
 	return fget_count(head);
 }
 
-template <class T>
-int List<T>::fget_count(node<T>* strt)
+template <class T> int List<T>::fget_count(node<T>* strt)
 {
 	if(NULL == strt) return 0;
 	return (fget_count(strt->next) +1);
 }
 
-template <class T>
-List<T>& List<T>::operator=(const List<T> & right)
+template <class T> List<T>& List<T>::operator=(const List<T> & right)
 {
 	// Clear all of this
 	this->clear();
@@ -298,8 +280,7 @@ List<T>& List<T>::operator=(const List<T> & right)
 	return *this;
 }
 
-template <class T>
-void List<T>::clear(void)
+template <class T> void List<T>::clear(void)
 {
 	// If there is a head
 	if(head)

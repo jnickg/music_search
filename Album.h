@@ -1,3 +1,6 @@
+#ifndef JNICKG_ALBUM
+#define JNICKG_ALBUM
+
 #include <cstdlib>
 #include <cstring>
 #include "Song.h"
@@ -54,3 +57,5 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& out, const Album* const album);
+
+#endif

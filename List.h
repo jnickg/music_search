@@ -1,3 +1,6 @@
+#ifndef JNICKG_ADT_LIST
+#define JNICKG_ADT_LIST
+
 #include <cstdlib>
 #include <ostream>
 
@@ -112,3 +115,5 @@ private:
 //{
 //	return list.print(out);
 //}
+
+#endif

@@ -1,4 +1,6 @@
-// Song.h
+#ifndef JNICKG_SONG
+#define JNICKG_SONG
+
 #include <cstdlib>
 #include <ostream>
 #include <cstring>
@@ -60,3 +62,5 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& out, const Song* const song);
+
+#endif
