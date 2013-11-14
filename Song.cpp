@@ -44,6 +44,7 @@ int Song::addToPlaylist(char* pl)
 // Sets all the data to this, from params
 int Song::setSongFrom(char* t, char* ar, char* al, int l)
 {
+	std::cout << "in setSongFrom" << std::endl;// TEMPORARY FOR DEBUGGING
 	if(title) delete title;
 	title = new char[strlen(t) + 1];
 	strcpy(title, t);
@@ -58,6 +59,7 @@ int Song::setSongFrom(char* t, char* ar, char* al, int l)
 
 	length = l;
 
+	std::cout << "returning from setSongFrom" << std::endl;// TEMPORARY FOR DEBUGGING
 	return 1;
 }
 
@@ -73,8 +75,10 @@ int Song::copySongFrom(const Song& that)
 // Does not copy playlist data.
 int Song::copySongTo(Song & that) const
 {
+	std::cout << "in copySongTo" << std::endl;// TEMPORARY FOR DEBUGGING
 	int worked;
 	worked = that.setSongFrom(title, artist, album, length);
+	std::cout << "returning from  copySongTo" << std::endl;// TEMPORARY FOR DEBUGGING
 	return 1;
 }
 
@@ -135,7 +139,9 @@ std::ostream& Song::print(std::ostream & out) const
 // Calls copySong
 Song& Song::operator=(const Song & right)
 {
+	std::cout << "in operator=" << std::endl;// TEMPORARY FOR DEBUGGING
 	right.copySongTo(*this);
+	std::cout << "returning from operator=" << std::endl;// TEMPORARY FOR DEBUGGING
 	return *this;
 }
 

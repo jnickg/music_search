@@ -4,6 +4,7 @@
 #include "Song.h"
 #include "Album.h"
 #include "List.h"
+#include <iostream> // TEMPORARY FOR DEBUGGING
 
 namespace jnickg { namespace adt {
 #ifndef LLSTRUCT

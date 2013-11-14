@@ -5,6 +5,7 @@
 #include <ostream>
 #include <cstring>
 #include "List.h"
+#include <iostream>// TEMPORARY FOR DEBUGGING
 
 /* SONG
 Song.h

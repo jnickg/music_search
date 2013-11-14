@@ -25,19 +25,13 @@ template <class T> List<T>::~List(void)
 	// If there is a head
 	if(head)
 	{
-		node<T>* tmp;
-		while(head->next)
+		node<T>* it = head;
+		while(it)
 		{
-			// Set tmp to the 'in-between' node
-			tmp=head->next;
-			// Set head to point over tmp (unless
-			// tmp is the 2nd to last one)
-			if(tmp->next)
-				head->next = tmp->next;
-			// Then cull tmp
+			node<T>* tmp = it;
+			it = it->next;
 			delete tmp;
 		}
-		delete head;
 	}
 }
 
@@ -58,28 +52,29 @@ template <class T> int List<T>::add_to_head(const T & item)
 	// If no items in list, it's both last and head
 	if (NULL==head)
 	{
-		last = tmp;
 		head = tmp;
-		cur = tmp;
-		tmp->next = NULL;
+		last = tmp;
+
+		// Set iterator to the head, and make sure LLL terminates
+		cur = head;
+		last->next = NULL;
 	}
 	// One-item List needs to disconnect head and last
 	else if(NULL==head->next)
 	{
 		tmp->next = head;
-		last = head;
 		head = tmp;
-		last->next = NULL;
+
+		// set iterator to the head
+		cur = head;
+		// last is already the correct node
 	}
 	// Otherwise it's just the new head
 	else
 	{ 
 		tmp->next = head;
 		head = tmp;
-		if(cur == head)
-		{
-			cur = tmp;
-		}
+		cur = head;
 	}
 
 	count++;
@@ -111,12 +106,12 @@ template <class T> int List<T>::add_to_end(const T & item)
 	else
 	{ 
 		last->next = tmp;
-		last = tmp;
-		last->next = NULL;
 		if(cur == last)
 		{
-			cur = last;
+			cur = tmp;
 		}
+		last = tmp;
+		last->next = NULL;
 	}
 
 	count++;
@@ -274,6 +269,7 @@ template <class T> List<T>& List<T>::operator=(const List<T> & right)
 			tmp = tmp->next;
 			tmp->data = data;
 		}
+		last = tmp;
 		tmp->next = NULL;
 	}
 	else head = NULL;

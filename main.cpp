@@ -12,10 +12,25 @@ int main(void)
 	Album tmpA;
 	jnickg::adt::List<Song> tmpL;
 
-	std::cout << "Creating new song: Thriller, by Michael JAckson" << std::endl;
+	std::cout << "Creating new song: Thriller, by Michael Jackson" << std::endl;
 	tmpS.setSongFrom("Thriller", "Michael Jackson", "Thriller", 500);
+	std::cout << "Copying Song to the music library" << std::endl;
+	m.cpyToLib(tmpS);
 
-	std::cout << "Copying Thriller to the music library" << std::endl;
+	std::cout << "Creating new song: Wanna Be Startin\' Somethin\', by Michael Jackson" << std::endl;
+	tmpS.setSongFrom("Wanna Be Startin\' Somethin\'", "Michael Jackson", "Thriller", 500);
+	std::cout << "Copying Song to the music library" << std::endl;
+	m.cpyToLib(tmpS);
+
+
+	std::cout << "Creating new song: Beat It, by Michael Jackson" << std::endl;
+	tmpS.setSongFrom("Beat It", "Michael Jackson", "Thriller", 500);
+	std::cout << "Copying Song to the music library" << std::endl;
+	m.cpyToLib(tmpS);
+
+	std::cout << "Creating new song: Hotel California, by Eagles" << std::endl;
+	tmpS.setSongFrom("Hotel California", "Eagles", "Eagles Greatest Hits", 501);
+	std::cout << "Copying Song to the music library" << std::endl;
 	m.cpyToLib(tmpS);
 
 	std::cout << "Trying to pull by Artist" << std::endl;

@@ -28,14 +28,16 @@ int MusicLib::cpyToLib(Song & nSong)
 {
 	int worked = 0;
 	// Get artist and album from nSong
-	char* art;
-	char* alb;
+	char* art = NULL;
+	char* alb = NULL;
 	nSong.getArtist(art);
 	nSong.getAlbum(alb);
 
+	std::cout << "adding the song by artist" << std::endl;// TEMPORARY FOR DEBUGGING
 	// Get the artist from nSong & hash it to add to artistTable
 	worked += addByArtist(art, nSong);
 
+	std::cout << "adding the song by album" << std::endl;// TEMPORARY FOR DEBUGGING
 	// Get the album from nSong & hash it to add to albumTable
 	worked += addByAlbum(alb, nSong);
 
@@ -46,7 +48,9 @@ int MusicLib::cpyToLib(Song & nSong)
 // If there is a collision, iterate through the LLL of List<Song>s
 // and check if a list of name "artist" exists; if so, add the song
 // when the right one is found or it is realized that a new List of
-// name "artist" is needed
+// name "artist" is needed.
+// Returns 0 if there was no collision; 1 if a collision was resolved;
+// -1 if there was an error.
 int MusicLib::addByArtist(char* artist, Song & nSong)
 {
 	int h = hash(artist);
@@ -64,13 +68,47 @@ int MusicLib::addByArtist(char* artist, Song & nSong)
 	else
 	{
 		// First check if an artist of this name exists by running getByArtist()
+		jnickg::adt::List<Song> tmpL;
+		tmpL.setName(artist);
 
-		// If it doesn't, add to head of chain by holding onto the head and adding one before it
-		jnickg::adt::node<jnickg::adt::List<Song > >* tmp = artistTable[h%artS];
-		artistTable[h%artS] = new jnickg::adt::node<jnickg::adt::List<Song > >;
-		artistTable[h%artS]->data.setName(artist);
-		artistTable[h%artS]->data.add_to_end(nSong);
-		artistTable[h%artS]->next = tmp;
+		std::cout << "trying to get by artist" << std::endl;// TEMPORARY FOR DEBUGGING
+		int exists = getByArtist(artist, tmpL);
+
+		if(exists) 
+		{
+			std::cout << "trying to get by add to end" << std::endl;// TEMPORARY FOR DEBUGGING
+			tmpL.add_to_end(nSong);
+			bool got=false;
+			// Re-insert tmpL into correct place in hash table
+			jnickg::adt::node< jnickg::adt::List < Song > >* tmp = artistTable[h%artS];
+			std::cout << "starting while loop" << std::endl;// TEMPORARY FOR DEBUGGING
+			while(tmp)
+			{
+				got = tmp->data.isname(artist);
+				if(got)
+				{
+					std::cout << "got it; assigning..." << std::endl;// TEMPORARY FOR DEBUGGING
+					tmp->data = tmpL;
+					std::cout << "...now returning "<< std::endl;// TEMPORARY FOR DEBUGGING
+					return 1;
+				}
+				else 
+				{
+					std::cout << "did not get; trying next" << std::endl;// TEMPORARY FOR DEBUGGING
+					tmp = tmp->next;
+				}
+			}
+			return -1;
+		}
+		else
+		{
+			// If it doesn't, add to head of chain by holding onto the head and adding one before it
+			jnickg::adt::node<jnickg::adt::List<Song > >* tmp = artistTable[h%artS];
+			artistTable[h%artS] = new jnickg::adt::node<jnickg::adt::List<Song > >;
+			artistTable[h%artS]->data.setName(artist);
+			artistTable[h%artS]->data.add_to_end(nSong);
+			artistTable[h%artS]->next = tmp;
+		}
 		return 1;
 	}
 }
@@ -97,14 +135,38 @@ int MusicLib::addByAlbum(char* album, Song & nSong)
 	else
 	{
 		// First check if an album of this name exists by running getByAlbum()
+		Album tmpA;
+		int exists = getByAlbum(album, tmpA);
 
-		// If it doesn't, add to head of chain by holding onto the head and adding one before it
-		jnickg::adt::node<Album>* tmp = albumTable[h%albS];
-		albumTable[h%albS] = new jnickg::adt::node<Album>;
-		albumTable[h%albS]->data.setTitle(album);
-		albumTable[h%albS]->data.addSong(nSong);
-		albumTable[h%albS]->next = tmp;
-		return 1;
+		if(exists) 
+		{
+			tmpA.addSong(nSong);
+			int got=0;  // used to see if the correct album to override w/ tmpA was found
+			Album trash; // This is not needed except to shut the compiler up; should make new function in Album to just check name
+			// Re-insert tmpA into correct place in hash table
+			jnickg::adt::node<Album>* tmp = albumTable[h%albS];
+			while(tmp)
+			{
+				got = tmp->data.retrieve(album, trash);
+				if(got)
+				{
+					tmp->data = tmpA;
+					return 1;
+				}
+				else tmp = tmp->next;
+			}
+			return -1; // Something went wrong.
+		}
+		else // ALbum did not yet exist; add to head of chain by holding onto the head and adding one before it
+		{
+			
+			jnickg::adt::node<Album>* tmp = albumTable[h%albS];
+			albumTable[h%albS] = new jnickg::adt::node<Album>;
+			albumTable[h%albS]->data.setTitle(album);
+			albumTable[h%albS]->data.addSong(nSong);
+			albumTable[h%albS]->next = tmp;
+			return 1;
+		}
 	}
 }
 
