@@ -215,12 +215,12 @@ template <class T> int List<T>::it_comp(T & item) const
 
 template <class T> std::ostream& List<T>::print(std::ostream& out) const
 {
-	out << "Attempting to print List \'" << name << "\'" << std::endl;
+	//out << "Attempting to print List \'" << name << "\'" << std::endl;
 	int i = 0;
 	node<T>* tmp = head;
 	while(tmp)
 	{
-		out << "Item " << ++i << "\n\n";
+		out << "Item " << ++i << " - ";
 		out << &(tmp->data) << std::endl;
 		tmp = tmp->next;
 	}
@@ -278,22 +278,15 @@ template <class T> List<T>& List<T>::operator=(const List<T> & right)
 
 template <class T> void List<T>::clear(void)
 {
-	// If there is a head
-	if(head)
+	node<T>* it = head;
+	node<T>* tmp;
+	while(it)
 	{
-		node<T>* tmp;
-		while(head->next)
-		{
-			// Set tmp to the 'in-between' node
-			tmp=head->next;
-			// Set head to point over tmp (unless
-			// tmp is the 2nd to last one)
-			if(tmp->next)
-				head->next = tmp->next;
-			// Then cull tmp
-			delete tmp;
-		}
-		delete head;
-		head = NULL;
+		tmp = it;
+		it = it->next;
+		delete tmp;
 	}
+	head = NULL;
+	last = NULL;
+	cur = NULL;
 }

@@ -5,7 +5,6 @@
 #include <ostream>
 #include <cstring>
 #include "List.h"
-#include <iostream>// TEMPORARY FOR DEBUGGING
 
 /* SONG
 Song.h
@@ -35,6 +34,8 @@ public:
 
 	// Sets all the data to this, from params
 	int setSongFrom(char* t, char* ar, char* al, int l);
+	// Sets all the data to this, from params
+	int setSongFrom(char* t, char* ar, char* al, int l, jnickg::adt::List<char*> ply);
 	// Copies all data to this, from that
 	int copySongFrom(const Song& that);
 	// Copies all data from this, to that
@@ -46,6 +47,8 @@ public:
 	int getArtist(char * & art) const;
 	// Copies to alb the album of the instance
 	int getAlbum(char * & alb) const;
+	// Copies to ply the playlist of the instance
+	int getPlaylist(jnickg::adt::List<char*> & ply) const;
 
 	// Prints all data
 	std::ostream& print(std::ostream & out) const;

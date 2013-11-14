@@ -81,9 +81,8 @@ int Album::toStr(char * & ts) const
 // Iterates through songs and prints each
 std::ostream& Album::print(std::ostream & out) const
 {
-	out << "ALBUM\n" << std::endl;
-	out << "title:\t" << title << std::endl;
-	out << "songs" << std::endl;
+	out << "ALBUM: " << title << std::endl;
+	out << "SONGS:" << std::endl;
 	songs.print(out);
 	return out;
 }

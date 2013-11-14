@@ -33,11 +33,9 @@ int MusicLib::cpyToLib(Song & nSong)
 	nSong.getArtist(art);
 	nSong.getAlbum(alb);
 
-	std::cout << "adding the song by artist" << std::endl;// TEMPORARY FOR DEBUGGING
 	// Get the artist from nSong & hash it to add to artistTable
 	worked += addByArtist(art, nSong);
 
-	std::cout << "adding the song by album" << std::endl;// TEMPORARY FOR DEBUGGING
 	// Get the album from nSong & hash it to add to albumTable
 	worked += addByAlbum(alb, nSong);
 
@@ -71,30 +69,25 @@ int MusicLib::addByArtist(char* artist, Song & nSong)
 		jnickg::adt::List<Song> tmpL;
 		tmpL.setName(artist);
 
-		std::cout << "trying to get by artist" << std::endl;// TEMPORARY FOR DEBUGGING
+
 		int exists = getByArtist(artist, tmpL);
 
 		if(exists) 
 		{
-			std::cout << "trying to get by add to end" << std::endl;// TEMPORARY FOR DEBUGGING
 			tmpL.add_to_end(nSong);
 			bool got=false;
 			// Re-insert tmpL into correct place in hash table
 			jnickg::adt::node< jnickg::adt::List < Song > >* tmp = artistTable[h%artS];
-			std::cout << "starting while loop" << std::endl;// TEMPORARY FOR DEBUGGING
 			while(tmp)
 			{
 				got = tmp->data.isname(artist);
 				if(got)
 				{
-					std::cout << "got it; assigning..." << std::endl;// TEMPORARY FOR DEBUGGING
 					tmp->data = tmpL;
-					std::cout << "...now returning "<< std::endl;// TEMPORARY FOR DEBUGGING
 					return 1;
 				}
 				else 
 				{
-					std::cout << "did not get; trying next" << std::endl;// TEMPORARY FOR DEBUGGING
 					tmp = tmp->next;
 				}
 			}

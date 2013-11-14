@@ -25,6 +25,14 @@ int main(void)
 
 	std::cout << "Creating new song: Beat It, by Michael Jackson" << std::endl;
 	tmpS.setSongFrom("Beat It", "Michael Jackson", "Thriller", 500);
+	std::cout << "Adding \'Beat It\' to two playlists: \'Pop music!\' and \'Easy grooves\'" << std::endl;
+	tmpS.addToPlaylist("Pop music!");
+	tmpS.addToPlaylist("Easy grooves");
+	std::cout << "Copying Song to the music library" << std::endl;
+	m.cpyToLib(tmpS);
+
+	std::cout << "Creating new song: ABC 123, by Michael Jackson" << std::endl;
+	tmpS.setSongFrom("ABC 123", "Michael Jackson", "The Jackson 5", 500);
 	std::cout << "Copying Song to the music library" << std::endl;
 	m.cpyToLib(tmpS);
 
@@ -33,18 +41,15 @@ int main(void)
 	std::cout << "Copying Song to the music library" << std::endl;
 	m.cpyToLib(tmpS);
 
-	std::cout << "Trying to pull by Artist" << std::endl;
+	std::cout << "Trying to pull songs by Michael Jackson" << std::endl;
 	m.getByArtist("Michael Jackson", tmpL);
-
 	std::cout << "Attempting to print the pulled list of songs by Michael Jakcson." << std::endl;
 	tmpL.print(std::cout);
 
-	std::cout << "Trying to pull by album" << std::endl;
+	std::cout << "Trying to pull songs from album: \'Thriller\'" << std::endl;
 	m.getByAlbum("Thriller", tmpA);
-
 	std::cout << "Attempting to print the pulled album \'Thriller\'" << std::endl;
 	tmpA.print(std::cout);
-
 
 	return 0;
 }
