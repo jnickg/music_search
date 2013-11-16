@@ -27,19 +27,19 @@ Song::Song(char* t, char* ar, char* al, int l)
 // Default destructor
 Song::~Song(void)
 {
-	delete title;
+	if(title) delete title;
 	title = NULL;
-	delete artist;
+	if(artist) delete artist;
 	artist = NULL;
-	delete album;
+	if(album) delete album;
 	album = NULL;
 }
 
 // Adds song to a new playlist
-int Song::addToPlaylist(char* pl)
+/*int Song::addToPlaylist(char* pl)
 {
 	return playlists.add_to_end(pl);
-}
+}*/
 
 // Sets all the data to this, from params
 int Song::setSongFrom(char* t, char* ar, char* al, int l)
@@ -62,7 +62,7 @@ int Song::setSongFrom(char* t, char* ar, char* al, int l)
 }
 
 // Sets all the data to this, from params
-int Song::setSongFrom(char* t, char* ar, char* al, int l, jnickg::adt::List<char*> ply)
+/*int Song::setSongFrom(char* t, char* ar, char* al, int l, jnickg::adt::List<char*> ply) // Removed ply for simplicity
 {
 	if(title) delete title;
 	title = new char[strlen(t) + 1];
@@ -78,10 +78,10 @@ int Song::setSongFrom(char* t, char* ar, char* al, int l, jnickg::adt::List<char
 
 	length = l;
 
-	playlists = ply;
+	playlists = ply; //Removed for simplicity
 
 	return 1;
-}
+} */
 
 // Copies all data to this, from that.
 // Does not copy playlist data.
@@ -96,7 +96,7 @@ int Song::copySongFrom(const Song& that)
 int Song::copySongTo(Song & that) const
 {
 	int worked;
-	worked = that.setSongFrom(title, artist, album, length, playlists);
+	worked = that.setSongFrom(title, artist, album, length/*, playlists*/);
 	return 1;
 }
 
@@ -149,8 +149,8 @@ std::ostream& Song::print(std::ostream & out) const
 	out << "artist:\t" << artist << std::endl;
 	out << "album:\t" << album << std::endl;
 	out << "length:\t" << length << " sec" << std::endl;
-	out << "in playlists:" << std::endl;
-	playlists.print(out);
+	/*out << "in playlists:" << std::endl;
+	playlists.print(out);*/
 	out << "\n" << std::endl;
 }
 

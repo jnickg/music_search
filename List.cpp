@@ -26,12 +26,15 @@ template <class T> List<T>::~List(void)
 	if(head)
 	{
 		node<T>* it = head;
+		node<T>* tmp;
 		while(it)
 		{
-			node<T>* tmp = it;
+			tmp = it;
 			it = it->next;
 			delete tmp;
 		}
+		tmp = NULL;
+		it = NULL;
 	}
 }
 

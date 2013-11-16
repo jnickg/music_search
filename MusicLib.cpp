@@ -61,16 +61,15 @@ int MusicLib::addByArtist(char* artist, Song & nSong)
 		artistTable[h%artS]->data.add_to_end(nSong);
 		artistTable[h%artS]->next = NULL;
 		return 0;
-	}
+	} // End case 1 if
 	// Case 2: Solve collision with chaining even though linear probing would be better
 	else
 	{
 		// First check if an artist of this name exists by running getByArtist()
 		jnickg::adt::List<Song> tmpL;
-		tmpL.setName(artist);
-
-
+		
 		int exists = getByArtist(artist, tmpL);
+		tmpL.setName(artist);
 
 		if(exists) 
 		{
@@ -93,6 +92,7 @@ int MusicLib::addByArtist(char* artist, Song & nSong)
 			}
 			return -1;
 		}
+
 		else
 		{
 			// If it doesn't, add to head of chain by holding onto the head and adding one before it
@@ -103,7 +103,7 @@ int MusicLib::addByArtist(char* artist, Song & nSong)
 			artistTable[h%artS]->next = tmp;
 		}
 		return 1;
-	}
+	} // End case 2 else
 }
 
 // Adds nSong to albumTable; chains if needed

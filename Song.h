@@ -58,7 +58,7 @@ private:
 	char* title; // The title of the song
 	char* artist; // The artist who made the song
 	char* album; // The album the song is in
-	jnickg::adt::List<char*> playlists; // The playlists in which the song appears
+	//jnickg::adt::List<char*> playlists; // The playlists in which the song appears
 	int length; // The length (in seconds) of the song
 
 	// Invokes the Song's print function
