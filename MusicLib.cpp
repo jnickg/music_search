@@ -17,9 +17,38 @@ MusicLib::MusicLib(void)
 	for(i=0; i<albS; i++) albumTable[i] = NULL;
 }
 
+// Delete everything
 MusicLib::~MusicLib(void)
 {
-	// Delete everything
+	int i;
+	for(i=0; i<artS; i++)
+	{
+		jnickg::adt::node < jnickg::adt::List < Song > > * it = artistTable[i];
+		jnickg::adt::node < jnickg::adt::List < Song > > * tmp;
+		while(it)
+		{
+			tmp = it;
+			it = it->next;
+			delete tmp;
+		}
+		tmp = NULL;
+		it = NULL;
+		artistTable[i] = NULL;
+	}
+	for(i=0; i<albS; i++)
+	{
+		jnickg::adt::node < Album > * it = albumTable[i];
+		jnickg::adt::node < Album > * tmp;
+		while(it)
+		{
+			tmp = it;
+			it = it->next;
+			delete tmp;
+		}
+		tmp = NULL;
+		it = NULL;
+		albumTable[i] = NULL;
+	}
 }
 
 // Copies the song's data to a new song and inserts it into the
